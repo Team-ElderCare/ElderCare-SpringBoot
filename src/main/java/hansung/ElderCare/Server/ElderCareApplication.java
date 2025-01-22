@@ -1,4 +1,4 @@
-package hansung.ElderCare.ElderCare;
+package hansung.ElderCare.Server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
