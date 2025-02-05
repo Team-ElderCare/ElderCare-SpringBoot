@@ -18,21 +18,36 @@ public class SwaggerConfig {
                 .description("ElderCare API 명세서")
                 .version("1.0.0");
 
-        String jwtSchemeName = "JWT TOKEN";
-        // API 요청헤더에 인증정보 포함
-        SecurityRequirement securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
-        // SecuritySchemes 등록
-        Components components = new Components()
-                .addSecuritySchemes(jwtSchemeName, new SecurityScheme()
-                        .name(jwtSchemeName)
-                        .type(SecurityScheme.Type.HTTP) // HTTP 방식
-                        .scheme("bearer")
-                        .bearerFormat("JWT"));
-
         return new OpenAPI()
                 .addServersItem(new Server().url("/"))
-                .info(info)
-                .addSecurityItem(securityRequirement)
-                .components(components);
+                .info(info);
     }
 }
+
+//@Configuration
+//public class SwaggerConfig {
+//    @Bean
+//    public OpenAPI GrowITAPI() {
+//        Info info = new Info()
+//                .title("ElderCare API")
+//                .description("ElderCare API 명세서")
+//                .version("1.0.0");
+//
+//        String jwtSchemeName = "JWT TOKEN";
+//        // API 요청헤더에 인증정보 포함
+//        SecurityRequirement securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
+//        // SecuritySchemes 등록
+//        Components components = new Components()
+//                .addSecuritySchemes(jwtSchemeName, new SecurityScheme()
+//                        .name(jwtSchemeName)
+//                        .type(SecurityScheme.Type.HTTP) // HTTP 방식
+//                        .scheme("bearer")
+//                        .bearerFormat("JWT"));
+//
+//        return new OpenAPI()
+//                .addServersItem(new Server().url("/"))
+//                .info(info)
+//                .addSecurityItem(securityRequirement)
+//                .components(components);
+//    }
+//}
