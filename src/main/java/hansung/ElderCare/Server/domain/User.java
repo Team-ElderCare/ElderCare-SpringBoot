@@ -18,12 +18,18 @@ public class User {
     @Column(name = "user_kakaoid")
     private Long kakaoId;       // 카카오 ID
 
+    @Column(name = "user_email")
+    private String email;       // 사용자 이메일
+
     @Column(name = "username")
     private String userName;    // 사용자 이름
 
-    @Enumerated(EnumType.STRING)
+    @Column(name = "user_phone_number")
+    private String phoneNumber;     // 사용자 전화번호
+
     @Column(name = "user_relationship")
-    private RelationShip relationShip;  // 보호대상자와의 관계
+    @Enumerated(EnumType.STRING)
+    private Relationship relationship;        // 사용자와 보호대상자 간 관계
 
     @Column(name = "user_image_url")
     private String userImageUrl;    // 사용자 프사 url

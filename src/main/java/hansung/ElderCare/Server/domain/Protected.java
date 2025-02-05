@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -18,8 +20,8 @@ public class Protected {
     @Column(name = "protected_name")
     private String name;       // 보호대상자 이름
 
-    @Column(name = "protected_age")
-    private int age;        // 보호대상자 나이
+    @Column(name = "protected_birthDate")
+    private LocalDate birthDate;        // 보호대상자 생년월일
 
     @Column(name = "protected_nickname")
     private String nickname;       // 보호대상자 닉네임
@@ -31,9 +33,6 @@ public class Protected {
     @Column(name = "protected_address")
     private Address address;    // 보호대상자 주소
 
-    @Column(name = "protected_image_url")
-    private String imageUrl;   // 보호대상자 프사 url
-
     @Column(name = "protected_height")
     private int height;     // 보호대상자 키
 
@@ -43,4 +42,7 @@ public class Protected {
     @Enumerated(EnumType.STRING)
     @Column(name = "protected_blood_type")
     private BloodType bloodType;    // 보호대상자 혈액형
+
+    @Column(name = "protected_image_url")
+    private String protectedImageUrl;    // 사용자 프사 url
 }

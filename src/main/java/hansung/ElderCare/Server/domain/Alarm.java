@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -16,9 +17,12 @@ public class Alarm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "alarm_name")
+    private String name;
+
     @Column(name = "time")
     @Temporal(TemporalType.TIME)
-    private LocalTime alarmTime;        // 알람 시간
+    private List<LocalTime> alarmTimes;        // 알람 시간
 
     @Column(name = "day")
     @Enumerated(EnumType.STRING)
