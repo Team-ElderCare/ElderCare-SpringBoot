@@ -24,6 +24,4 @@ public class Activity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "protected_id")
     private Protected Protected;
-
-
 }
