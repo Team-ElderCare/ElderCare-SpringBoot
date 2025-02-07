@@ -21,6 +21,12 @@ public class Activity {
     @Column(name = "end_time")
     private String endTime;
 
+    @Column(name = "is_detected")
+    private boolean isDetected;     // 감지 여부
+
+    @Column(name = "detected_location")
+    private String detectedLocation;        // 활동 감지 장소
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "protected_id")
     private Protected Protected;

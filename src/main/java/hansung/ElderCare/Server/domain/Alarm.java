@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Alarm {
 
     @Column(name = "time")
     @Temporal(TemporalType.TIME)
-    private List<LocalTime> alarmTimes;        // 알람 시간
+    private List<LocalTime> alarmTimes = new ArrayList<>();        // 알람 시간
 
     @Column(name = "day")
     @Enumerated(EnumType.STRING)
