@@ -3,6 +3,7 @@ package hansung.ElderCare.Server.domain;
 import hansung.ElderCare.Server.domain.enums.BloodType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Protected {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

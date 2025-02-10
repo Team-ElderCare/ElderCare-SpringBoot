@@ -1,14 +1,14 @@
 package hansung.ElderCare.Server.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder
+@Setter
 public class UA_UD_UP {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
