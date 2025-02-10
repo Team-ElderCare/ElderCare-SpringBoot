@@ -1,12 +1,15 @@
 package hansung.ElderCare.Server.domain;
 
+import hansung.ElderCare.Server.domain.enums.Relationship;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {

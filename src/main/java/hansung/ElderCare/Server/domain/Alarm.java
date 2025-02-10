@@ -1,5 +1,6 @@
 package hansung.ElderCare.Server.domain;
 
+import hansung.ElderCare.Server.domain.enums.Days;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

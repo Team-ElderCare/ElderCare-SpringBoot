@@ -1,8 +1,6 @@
-package hansung.ElderCare.Server.domain;
+package hansung.ElderCare.Server.domain.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 public enum Relationship {
