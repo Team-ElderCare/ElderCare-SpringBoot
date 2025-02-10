@@ -47,5 +47,5 @@ public class Protected {
     private BloodType bloodType;    // 보호대상자 혈액형
 
     @Column(name = "protected_image_url")
-    private String protectedImageUrl;    // 사용자 프사 url
+    private String protectedImageUrl;    // 보호대상자 프사 url
 }

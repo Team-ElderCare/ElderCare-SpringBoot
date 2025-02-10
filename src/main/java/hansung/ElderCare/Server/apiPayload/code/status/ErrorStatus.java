@@ -23,6 +23,7 @@ public enum ErrorStatus implements BaseErrorCode {
 
     // 보호자관련 에러
     PROTECTED_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "PROTECTED4001", "이미 보호대상자가 등록되어 있습니다."),
+    PROTECTED_NULL(HttpStatus.BAD_REQUEST, "PROTECTED4002", "보호대상자 객체가 NULL 값입니다."),
 
     // 사용자-보호대상자 간 관계 테이블 에러
     USER_NOT_IN_RELATIONAL(HttpStatus.BAD_REQUEST, "UAUDUP4001", "관계 테이블에 해당 사용자가 없습니다."),
