@@ -25,8 +25,8 @@ public class ProtectedController implements ProtectedSpecification {
 
     @Override
     @PostMapping("/registration")
-    public ApiResponse<Long> registerProtected(@RequestBody @Valid ProtectedRequestDTO.RegistrationDTO registrationDTO) {
-        Long id = protectedCommandService.registrationProtected(registrationDTO);
+    public ApiResponse<Long> registerProtected(@RequestBody @Valid ProtectedRequestDTO.RegistrationDTO request) {
+        Long id = protectedCommandService.registrationProtected(request, 2L);
         return ApiResponse.onSuccess(id);
     }
 
@@ -38,5 +38,12 @@ public class ProtectedController implements ProtectedSpecification {
             return ApiResponse.onFailure(ErrorStatus.PROTECTED_NULL.getCode(), ErrorStatus.PROTECTED_NULL.getMessage(), null);
         }
         return ApiResponse.onSuccess(protectedInfo);
+    }
+
+    @Override
+    @GetMapping("/phone_num")
+    public ApiResponse<ProtectedResponseDTO.protectedPhoneNumber> getPhoneNumber() {
+        ProtectedResponseDTO.protectedPhoneNumber protectedPhoneNumber = protectedQueryService.getPhoneNumber(2L);
+        return ApiResponse.onSuccess(protectedPhoneNumber);
     }
 }
