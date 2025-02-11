@@ -17,4 +17,8 @@ public interface ProtectedSpecification {
     @GetMapping
     @Operation(summary = "보호대상자 조회", description = "보호대상자 정보를 조회합니다.")
     public ApiResponse<ProtectedResponseDTO.ProtectedInfo> getProtected();
+
+    @GetMapping
+    @Operation(summary = "보호대상자 연락하기", description = "보호대상자의 전화번호를 받아 반환")
+    public ApiResponse<ProtectedResponseDTO.protectedPhoneNumber> getPhoneNumber();
 }

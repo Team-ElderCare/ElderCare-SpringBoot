@@ -31,13 +31,14 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
     private final UA_UD_UPRepository uaUdUpRepository;
 
     @Override
-    // 보호대상자 등록
-    public Long registrationProtected(ProtectedRequestDTO.RegistrationDTO registrationDTO) {
+// 보호대상자 등록
+    public Long registrationProtected(ProtectedRequestDTO.RegistrationDTO registrationDTO, Long userId) {
 
         // 이미 등록된 보호대상자가 있다면 예외처리
         // 전화번호로 중복확인
-        Optional<Protected> protectedOptional = protectedRepository.findByPhoneNumber(registrationDTO.getPhoneNumber());
-        if (protectedOptional.isPresent()) {
+        Optional<UA_UD_UP> uaUdUpOptionalWithProtected = uaUdUpRepository.findByUserIdWithProtected(userId);
+
+        if (uaUdUpOptionalWithProtected.isPresent()) {
             throw new ProtectedHandler(ErrorStatus.PROTECTED_ALREADY_EXISTS);
         }
 
@@ -54,20 +55,12 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
 
         // 보호대상자 테이블과 사용자-보호대상자 관계 테이블 매핑
         // 일단 사용자의 기본키는 1L
-        Optional<User> userOptional = userRepository.findById(1L);
-
-        if (userOptional.isEmpty()) {
-            throw new UserHandler(ErrorStatus.USER_NOT_FOUND);
+        Optional<UA_UD_UP> uaUdUpOptionalWithUser = uaUdUpRepository.findByUserIdWithUser(userId);
+        if (uaUdUpOptionalWithUser.isEmpty()) {
+            throw new UserHandler(ErrorStatus.USER_NOT_IN_RELATIONAL);
         }
 
-        User user = userOptional.get();
-
-        // 사용자가 관계 테이블에 등록되어 있지 않을 때
-        Optional<UA_UD_UP> uaUdUpOptional = uaUdUpRepository.findByUser(user);
-        if (uaUdUpOptional.isEmpty()) {
-            throw new UA_UD_UPHandler(ErrorStatus.USER_NOT_IN_RELATIONAL);
-        }
-        UA_UD_UP uaUdUp = uaUdUpOptional.get();
+        UA_UD_UP uaUdUp = uaUdUpOptionalWithUser.get();
         uaUdUp.setProtected(protect);
         return protect.getId();
     }

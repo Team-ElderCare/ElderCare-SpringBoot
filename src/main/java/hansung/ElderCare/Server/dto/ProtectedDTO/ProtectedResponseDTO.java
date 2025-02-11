@@ -52,4 +52,13 @@ public class ProtectedResponseDTO {
             private String detailedAddress;
         }
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class protectedPhoneNumber {
+        @Schema(description = "전화번호")
+        private String phoneNumber;
+    }
 }

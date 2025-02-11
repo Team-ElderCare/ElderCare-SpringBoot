@@ -19,4 +19,11 @@ public class ProtectedConverter {
         return protectedInfo;
 
     }
+
+    public static ProtectedResponseDTO.protectedPhoneNumber toProtectedPhoneNumber(Protected aProtected) {
+        ProtectedResponseDTO.protectedPhoneNumber protectedPhoneNumber = ProtectedResponseDTO.protectedPhoneNumber.builder()
+                .phoneNumber(aProtected.getPhoneNumber())
+                .build();
+        return protectedPhoneNumber;
+    }
 }

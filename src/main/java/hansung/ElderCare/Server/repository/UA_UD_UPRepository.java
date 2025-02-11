@@ -12,9 +12,11 @@ import java.util.Optional;
 
 @Repository
 public interface UA_UD_UPRepository extends JpaRepository<UA_UD_UP, Long> {
-    // User 객체로 연관 테이블 조회
-    Optional<UA_UD_UP> findByUser(User user);
+    // userId로 UA_UD_UP 객체와 User 객체 join
+    @Query("select u from UA_UD_UP u JOIN FETCH u.user where u.user.id = :id")
+    Optional<UA_UD_UP> findByUserIdWithUser(@Param("id")Long userId);
 
-    @Query("select u from UA_UD_UP u where u.user.id = :id")
-    Optional<UA_UD_UP> findByUserId(@Param("id") Long id);
+    // userId로 UA_UD_UP 객체와 Protected 객체 join
+    @Query("select u from UA_UD_UP u JOIN FETCH u.Protected where u.user.id = :id")
+    Optional<UA_UD_UP> findByUserIdWithProtected(@Param("id") Long userId);
 }
