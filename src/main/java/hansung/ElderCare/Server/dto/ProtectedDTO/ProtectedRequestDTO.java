@@ -36,6 +36,10 @@ public class ProtectedRequestDTO {
         private String phoneNumber;
 
         @NotNull
+        @Schema(description = "보호대상자 프로필 사진")
+        private String protectedImageUrl;
+
+        @NotNull
         @Schema(description = "주소(우편번호, 건물명, 상세주소)")
         private AddressDTO address;
 

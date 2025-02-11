@@ -10,6 +10,7 @@ import hansung.ElderCare.Server.domain.UA_UD_UP;
 import hansung.ElderCare.Server.domain.User;
 import hansung.ElderCare.Server.domain.enums.Relationship;
 import hansung.ElderCare.Server.dto.ProtectedDTO.ProtectedRequestDTO;
+import hansung.ElderCare.Server.dto.ProtectedDTO.ProtectedResponseDTO;
 import hansung.ElderCare.Server.repository.ProtectedRepository;
 import hansung.ElderCare.Server.repository.UA_UD_UPRepository;
 import hansung.ElderCare.Server.repository.UserRepository;
@@ -47,6 +48,7 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
                 .nickname(registrationDTO.getNickname())
                 .phoneNumber(registrationDTO.getPhoneNumber())
                 .address(AddressConverter.toAddressEntity(registrationDTO.getAddress()))
+                .protectedImageUrl(registrationDTO.getProtectedImageUrl())
                 .build();
         protectedRepository.save(protect);
 
