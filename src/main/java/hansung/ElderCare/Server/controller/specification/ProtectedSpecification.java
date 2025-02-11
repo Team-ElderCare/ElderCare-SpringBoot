@@ -12,7 +12,7 @@ public interface ProtectedSpecification {
 
     @PostMapping
     @Operation(summary = "보호대상자 등록", description = "보호대상자 기본 정보를 등록합니다.")
-    public ApiResponse<Long> registerProtected(ProtectedRequestDTO.RegistrationDTO registrationDTO);
+    public ApiResponse<Long> registerProtected(ProtectedRequestDTO.RegistrationDTO request);
 
     @GetMapping
     @Operation(summary = "보호대상자 조회", description = "보호대상자 정보를 조회합니다.")

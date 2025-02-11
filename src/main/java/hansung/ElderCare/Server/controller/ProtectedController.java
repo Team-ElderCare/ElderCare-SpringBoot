@@ -25,8 +25,8 @@ public class ProtectedController implements ProtectedSpecification {
 
     @Override
     @PostMapping("/registration")
-    public ApiResponse<Long> registerProtected(@RequestBody @Valid ProtectedRequestDTO.RegistrationDTO registrationDTO) {
-        Long id = protectedCommandService.registrationProtected(registrationDTO, 2L);
+    public ApiResponse<Long> registerProtected(@RequestBody @Valid ProtectedRequestDTO.RegistrationDTO request) {
+        Long id = protectedCommandService.registrationProtected(request, 2L);
         return ApiResponse.onSuccess(id);
     }
 
