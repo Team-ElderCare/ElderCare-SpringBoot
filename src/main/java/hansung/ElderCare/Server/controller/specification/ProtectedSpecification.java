@@ -5,6 +5,8 @@ import hansung.ElderCare.Server.dto.ProtectedDTO.ProtectedRequestDTO;
 import hansung.ElderCare.Server.dto.ProtectedDTO.ProtectedResponseDTO;
 import hansung.ElderCare.Server.dto.UserDTO.UserRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -12,7 +14,7 @@ public interface ProtectedSpecification {
 
     @PostMapping
     @Operation(summary = "보호대상자 등록", description = "보호대상자 기본 정보를 등록합니다.")
-    public ApiResponse<Long> registerProtected(ProtectedRequestDTO.RegistrationDTO request);
+    public ApiResponse<?> registerProtected(ProtectedRequestDTO.RegistrationDTO request, Errors errors, BindingResult bindingResult);
 
     @GetMapping
     @Operation(summary = "보호대상자 조회", description = "보호대상자 정보를 조회합니다.")
@@ -21,4 +23,8 @@ public interface ProtectedSpecification {
     @GetMapping
     @Operation(summary = "보호대상자 연락하기", description = "보호대상자의 전화번호를 받아 반환")
     public ApiResponse<ProtectedResponseDTO.protectedPhoneNumber> getPhoneNumber();
+
+    @PostMapping
+    @Operation(summary = "보호대상자 건강정보 등록하기", description = "보호대상자 건강정보 데이터를 받아 저장")
+    public ApiResponse<?> registerHealthInfo(ProtectedRequestDTO.ProtectedHealthInfo request, BindingResult bindingResult);
 }

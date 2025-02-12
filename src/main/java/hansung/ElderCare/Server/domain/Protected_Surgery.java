@@ -2,6 +2,7 @@ package hansung.ElderCare.Server.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder
 public class Protected_Surgery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
