@@ -57,7 +57,6 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
                 .nickname(registrationDTO.getNickname())
                 .phoneNumber(registrationDTO.getPhoneNumber())
                 .address(AddressConverter.toAddressEntity(registrationDTO.getAddress()))
-                .protectedImageUrl(registrationDTO.getProtectedImageUrl())
                 .build();
         protectedRepository.save(protect);
 

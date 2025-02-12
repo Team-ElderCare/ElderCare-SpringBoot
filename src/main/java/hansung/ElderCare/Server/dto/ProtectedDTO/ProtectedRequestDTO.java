@@ -2,6 +2,7 @@ package hansung.ElderCare.Server.dto.ProtectedDTO;
 
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class ProtectedRequestDTO {
         @Schema(description = "보호대상자 이름", example = "홍길동")
         private String name;
 
-        @NotBlank(message = "생년월일은 필수 입력입니다.")
+        @NotNull(message = "생년월일은 필수 입력입니다.")
         @Schema(description = "생년월일", example = "1990-01-01")
         private LocalDate birthDate;
 
@@ -37,12 +38,8 @@ public class ProtectedRequestDTO {
         @Schema(description = "전화번호", example = "010-0000-0000")
         private String phoneNumber;
 
-        // 보호대상자 프로필 사진은 NULL 값 허용
-        @Schema(description = "보호대상자 프로필 사진", example = "imageURL")
-        private String protectedImageUrl;
-
-        @NotBlank(message = "주소는 필수 입력 사항입니다.")
         @Schema(description = "주소(우편번호, 건물명, 상세주소)", examples = {"12345", "한성대학교", "서울시 성북구 ..."})
+        @Valid
         private ProtectedResponseDTO.ProtectedInfo.AddressDTO address;
 
         @Getter
