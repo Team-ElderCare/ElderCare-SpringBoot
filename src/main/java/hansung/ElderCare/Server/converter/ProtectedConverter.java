@@ -13,7 +13,6 @@ public class ProtectedConverter {
                 .address(AddressConverter.toResponseAddressDTO(aProtected.getAddress()))
                 .birthDate(aProtected.getBirthDate())
                 .phoneNumber(aProtected.getPhoneNumber())
-                .protectedImageUrl(aProtected.getProtectedImageUrl())
                 .build();
 
     }
