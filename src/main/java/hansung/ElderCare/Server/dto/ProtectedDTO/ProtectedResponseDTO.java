@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ProtectedResponseDTO {
 
@@ -53,5 +54,29 @@ public class ProtectedResponseDTO {
     public static class protectedPhoneNumber {
         @Schema(description = "전화번호", example = "010-0000-0000")
         private String phoneNumber;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class protectedHealthInfo {
+        @Schema(description = "키", example = "169")
+        private Integer height;
+
+        @Schema(description = "몸무게", example = "60")
+        private Integer weight;
+
+        @Schema(description = "혈액형", example = "RH+A")
+        private String bloodType;
+
+        @Schema(description = "알레르기", example = "[\"집가고싶어 알레르기\", \"페니실린 알레르기\", \"토마토 알러지\"]")
+        private List<String> allergies;
+
+        @Schema(description = "백신", example = "[\"코로나 19\", \"독감 예방주사\", \"백신3\"]")
+        private List<String> vaccines;
+
+        @Schema(description = "수술", example = "[\"다이어트 수술\", \"맹장 수술\", \"수술 3\"]")
+        private List<String> surgeries;
     }
 }

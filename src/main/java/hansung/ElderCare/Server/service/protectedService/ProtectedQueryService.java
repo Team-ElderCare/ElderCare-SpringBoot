@@ -6,4 +6,6 @@ public interface ProtectedQueryService {
     ProtectedResponseDTO.ProtectedInfo getProtectedInfo(Long userId);
 
     ProtectedResponseDTO.protectedPhoneNumber getPhoneNumber(Long userId);
+
+    ProtectedResponseDTO.protectedHealthInfo getProtectedHealthInfo(Long userId);
 }
