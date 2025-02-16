@@ -13,4 +13,6 @@ public interface ProtectedCommandService {
     Map<String, String> validateHandling(BindingResult bindingResult);
 
     Boolean registerHealth(ProtectedRequestDTO.ProtectedHealthInfo request, Long userId);
+
+    ProtectedResponseDTO.protectedHealthInfo updateHeightWeight(ProtectedRequestDTO.HeightWeightDTO request, Long userId);
 }

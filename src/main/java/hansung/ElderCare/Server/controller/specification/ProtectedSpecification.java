@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,4 +44,8 @@ public interface ProtectedSpecification {
     @GetMapping
     @Operation(summary = "보호대상자 건강정보 조회", description = "보호대상자 건강정보 조회")
     public ApiResponse<?> getHealthInfo();
+
+    @PutMapping
+    @Operation(summary = "보호대상자 키, 몸무게 수정", description = "보호대상자 키, 몸무게 수정")
+    public ApiResponse<?> updateHeightWeight(ProtectedRequestDTO.HeightWeightDTO request, BindingResult bindingResult);
 }

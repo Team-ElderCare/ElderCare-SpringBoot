@@ -104,4 +104,18 @@ public class ProtectedRequestDTO {
         @ArraySchema(schema = @Schema(description = "수술 목록", example = "[\"다이어트 수술\", \"맹장 수술\"]"))
         private List<String> surgeries;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class HeightWeightDTO {
+        @Schema(description = "키", example = "170")
+        @NotBlank(message = "키는 필수 입력입니다.")
+        private Integer height;
+
+        @NotBlank(message = "몸무게는 필수 입력입니다.")
+        @Schema(description = "몸무게", example = "70")
+        private Integer weight;
+    }
 }

@@ -95,4 +95,18 @@ public class ProtectedController implements ProtectedSpecification {
         return ApiResponse.onSuccess(protectedHealthInfo);
     }
 
+    @Override
+    @PutMapping("/update/height-weight")
+    public ApiResponse<?> updateHeightWeight(@RequestBody @Valid ProtectedRequestDTO.HeightWeightDTO request, BindingResult bindingResult) {
+        // 유효성 검사
+        if (bindingResult.hasErrors()) {
+            Map<String, String> validateResult = protectedCommandService.validateHandling(bindingResult);
+
+            return ApiResponse.onFailure(ErrorStatus.PROTECTED_DATA_UNSATISFIED.getCode(),
+                    ErrorStatus.PROTECTED_DATA_UNSATISFIED.getMessage(), validateResult);
+        }
+        ProtectedResponseDTO.protectedHealthInfo response = protectedCommandService.updateHeightWeight(request, 1L);
+        return ApiResponse.onSuccess(response);
+    }
+
 }
