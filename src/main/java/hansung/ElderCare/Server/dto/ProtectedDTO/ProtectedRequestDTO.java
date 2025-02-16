@@ -111,8 +111,10 @@ public class ProtectedRequestDTO {
     @AllArgsConstructor
     public static class HeightWeightDTO {
         @Schema(description = "키", example = "170")
+        @NotBlank(message = "키는 필수 입력입니다.")
         private Integer height;
 
+        @NotBlank(message = "몸무게는 필수 입력입니다.")
         @Schema(description = "몸무게", example = "70")
         private Integer weight;
     }
