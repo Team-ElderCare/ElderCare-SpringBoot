@@ -39,4 +39,8 @@ public interface ProtectedSpecification {
     @PostMapping
     @Operation(summary = "보호대상자 건강정보 등록하기", description = "보호대상자 건강정보 데이터를 받아 저장")
     public ApiResponse<?> registerHealthInfo(ProtectedRequestDTO.ProtectedHealthInfo request, BindingResult bindingResult);
+
+    @GetMapping
+    @Operation(summary = "보호대상자 건강정보 조회", description = "보호대상자 건강정보 조회")
+    public ApiResponse<?> getHealthInfo();
 }

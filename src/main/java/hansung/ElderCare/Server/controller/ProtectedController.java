@@ -88,4 +88,11 @@ public class ProtectedController implements ProtectedSpecification {
         return ApiResponse.onSuccess();
     }
 
+    @Override
+    @GetMapping("/health")
+    public ApiResponse<?> getHealthInfo() {
+        ProtectedResponseDTO.protectedHealthInfo protectedHealthInfo = protectedQueryService.getProtectedHealthInfo(2L);
+        return ApiResponse.onSuccess(protectedHealthInfo);
+    }
+
 }
