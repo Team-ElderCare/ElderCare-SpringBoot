@@ -104,4 +104,16 @@ public class ProtectedRequestDTO {
         @ArraySchema(schema = @Schema(description = "수술 목록", example = "[\"다이어트 수술\", \"맹장 수술\"]"))
         private List<String> surgeries;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class HeightWeightDTO {
+        @Schema(description = "키", example = "170")
+        private Integer height;
+
+        @Schema(description = "몸무게", example = "70")
+        private Integer weight;
+    }
 }

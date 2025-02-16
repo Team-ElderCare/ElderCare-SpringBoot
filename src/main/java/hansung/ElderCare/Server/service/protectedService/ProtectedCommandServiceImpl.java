@@ -192,4 +192,28 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
 
         return true;
     }
+
+    @Override
+    // 키 몸무게 수정 후 -> 보호대상자 전체 건강정보 Controller에 반환
+    public ProtectedResponseDTO.protectedHealthInfo updateHeightWeight(ProtectedRequestDTO.HeightWeightDTO request, Long userId) {
+        Protected aProtected = uaUdUpRepository.findByUserIdWithProtected(userId)
+                .orElseThrow(() -> new ProtectedHandler(ErrorStatus.PROTECTED_NULL))
+                .getProtected();
+
+        // 새로운 키, 몸무게 저장
+        aProtected.setHeight(request.getHeight());
+        aProtected.setWeight(request.getWeight());
+        protectedRepository.save(aProtected);
+
+        ProtectedResponseDTO.protectedHealthInfo response = ProtectedResponseDTO.protectedHealthInfo.builder()
+                .height(aProtected.getHeight())
+                .weight(aProtected.getWeight())
+                .bloodType(aProtected.getBloodType().getDisplayName())
+                .allergies(protectedAllergyRepository.findAllergyNamesByProtectedId(aProtected.getId()))
+                .vaccines(protectedVaccineRepository.findVaccineNamesByProtectedId(aProtected.getId()))
+                .surgeries(protectedSurgeryRepository.findSurgeryNamesByProtectedId(aProtected.getId()))
+                .build();
+
+        return response;
+    }
 }
