@@ -1,5 +1,6 @@
 package hansung.ElderCare.Server.repository;
 
+import hansung.ElderCare.Server.domain.Allergy;
 import hansung.ElderCare.Server.domain.Protected_Allergy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
