@@ -118,4 +118,14 @@ public class ProtectedRequestDTO {
         @Schema(description = "몸무게", example = "70")
         private Integer weight;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BloodTypeDTO {
+        @NotBlank(message = "혈액형은 필수 입력입니다.")
+        @Schema(description = "혈액형", example = "RH-A")
+        private String bloodType;
+    }
 }

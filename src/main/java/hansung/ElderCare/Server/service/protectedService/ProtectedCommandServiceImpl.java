@@ -5,6 +5,7 @@ import hansung.ElderCare.Server.apiPayload.exception.ProtectedHandler;
 import hansung.ElderCare.Server.apiPayload.exception.UA_UD_UPHandler;
 import hansung.ElderCare.Server.apiPayload.exception.UserHandler;
 import hansung.ElderCare.Server.converter.AddressConverter;
+import hansung.ElderCare.Server.converter.ProtectedConverter;
 import hansung.ElderCare.Server.domain.*;
 import hansung.ElderCare.Server.domain.enums.BloodType;
 import hansung.ElderCare.Server.domain.enums.Relationship;
@@ -13,6 +14,7 @@ import hansung.ElderCare.Server.dto.ProtectedDTO.ProtectedResponseDTO;
 import hansung.ElderCare.Server.repository.*;
 import hansung.ElderCare.Server.service.userService.UserCommandService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -27,6 +29,7 @@ import java.util.Optional;
 @Transactional
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class ProtectedCommandServiceImpl implements ProtectedCommandService{
 
     private final ProtectedRepository protectedRepository;
@@ -37,6 +40,8 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
     private final Protected_VaccineRepository protectedVaccineRepository;
     private final SurgeryRepository surgeryRepository;
     private final Protected_SurgeryRepository protectedSurgeryRepository;
+
+    private final ProtectedConverter protectedConverter;
 
     @Override
 // 보호대상자 등록
@@ -205,14 +210,22 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
         aProtected.setWeight(request.getWeight());
         protectedRepository.save(aProtected);
 
-        ProtectedResponseDTO.protectedHealthInfo response = ProtectedResponseDTO.protectedHealthInfo.builder()
-                .height(aProtected.getHeight())
-                .weight(aProtected.getWeight())
-                .bloodType(aProtected.getBloodType().getDisplayName())
-                .allergies(protectedAllergyRepository.findAllergyNamesByProtectedId(aProtected.getId()))
-                .vaccines(protectedVaccineRepository.findVaccineNamesByProtectedId(aProtected.getId()))
-                .surgeries(protectedSurgeryRepository.findSurgeryNamesByProtectedId(aProtected.getId()))
-                .build();
+        ProtectedResponseDTO.protectedHealthInfo response = protectedConverter.toProtectedHealthInfo(aProtected);
+
+        return response;
+    }
+
+    @Override
+    public ProtectedResponseDTO.protectedHealthInfo updateBloodType(ProtectedRequestDTO.BloodTypeDTO request, Long userId) {
+        Protected aProtected = uaUdUpRepository.findByUserIdWithProtected(userId)
+                .orElseThrow(() -> new ProtectedHandler(ErrorStatus.PROTECTED_NULL))
+                .getProtected();
+
+        // 혈액형 저장
+        aProtected.setBloodType(BloodType.fromString(request.getBloodType()));
+        protectedRepository.save(aProtected);
+
+        ProtectedResponseDTO.protectedHealthInfo response = protectedConverter.toProtectedHealthInfo(aProtected);
 
         return response;
     }
