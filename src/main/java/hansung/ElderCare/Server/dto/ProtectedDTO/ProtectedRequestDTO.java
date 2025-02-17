@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -135,7 +136,7 @@ public class ProtectedRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class AllergiesDTO {
-        @NotBlank(message = "알레르기는 필수 입력입니다.")
+        @NotEmpty(message = "알레르기는 필수 입력입니다.")
         @ArraySchema(schema = @Schema(description = "알레르기 목록", example = "[\"집가고싶어알레르기\", \"페니실린 알레르기\"]"))
         List<String> allergies = new ArrayList<>();
     }

@@ -17,4 +17,6 @@ public interface ProtectedCommandService {
     ProtectedResponseDTO.protectedHealthInfo updateHeightWeight(ProtectedRequestDTO.HeightWeightDTO request, Long userId);
 
     ProtectedResponseDTO.protectedHealthInfo updateBloodType(ProtectedRequestDTO.BloodTypeDTO request, Long userId);
+
+    ProtectedResponseDTO.protectedHealthInfo updateAllergy(ProtectedRequestDTO.AllergiesDTO request, Long userId);
 }

@@ -187,4 +187,34 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
 
         return response;
     }
+
+    @Override
+    public ProtectedResponseDTO.protectedHealthInfo updateAllergy(ProtectedRequestDTO.AllergiesDTO request, Long userId) {
+        Protected aProtected = uaUdUpRepository.findByUserIdWithProtected(userId)
+                .orElseThrow(() -> new ProtectedHandler(ErrorStatus.PROTECTED_NULL))
+                .getProtected();
+
+        // 기존에 있던 알레르기 레코드와 연결 끊기
+        protectedAllergyRepository.deleteByProtectedId(aProtected.getId());
+
+        List<String> allergyNames = request.getAllergies();
+
+        // 기존 알러지가 있으면 재사용, 없으면 새로 생성
+        for (String allergyName : allergyNames) {
+            Allergy allergy = allergyRepository.findByAllergyName(allergyName)
+                    .orElseGet(() -> {
+                        Allergy newAllergy = Allergy.builder()
+                                .allergyName(allergyName)
+                                .build();
+                        return allergyRepository.save(newAllergy);
+                    });
+
+            Protected_Allergy protectedAllergy = Protected_Allergy.builder()
+                    .allergy(allergy)
+                    .Protected(aProtected)
+                    .build();
+            protectedAllergyRepository.save(protectedAllergy);
+        }
+        return protectedConverter.toProtectedHealthInfo(aProtected);
+    }
 }
