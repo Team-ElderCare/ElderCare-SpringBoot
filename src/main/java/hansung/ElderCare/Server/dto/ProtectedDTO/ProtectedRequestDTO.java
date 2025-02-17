@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProtectedRequestDTO {
@@ -127,5 +128,15 @@ public class ProtectedRequestDTO {
         @NotBlank(message = "혈액형은 필수 입력입니다.")
         @Schema(description = "혈액형", example = "RH-A")
         private String bloodType;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AllergiesDTO {
+        @NotBlank(message = "알레르기는 필수 입력입니다.")
+        @ArraySchema(schema = @Schema(description = "알레르기 목록", example = "[\"집가고싶어알레르기\", \"페니실린 알레르기\"]"))
+        List<String> allergies = new ArrayList<>();
     }
 }

@@ -21,10 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Transactional
 @RequiredArgsConstructor
@@ -92,7 +89,7 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
 
     @Override
     // 보호대상자 건강정보 등록
-    public Boolean registerHealth(ProtectedRequestDTO.ProtectedHealthInfo request, Long userId) {
+    public ProtectedResponseDTO.protectedHealthInfo registerHealth(ProtectedRequestDTO.ProtectedHealthInfo request, Long userId) {
 
         // 현재 사용자에 등록되어 있는 보호대상자 있는지 확인
         Optional<UA_UD_UP> uaUdUpOptional = uaUdUpRepository.findByUserIdWithProtected(userId);
@@ -109,93 +106,54 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
 
         protectedRepository.save(aProtected);
 
-        // 요청받은 알레르기 리스트 중 알레르기 테이블에 이미 저장되어 있는 instance가 있는지 확인
+        // 알레르기 리스트 저장
         List<String> allergiesList = request.getAllergies();
-
         for (String allergyName : allergiesList) {
-            Optional<Allergy> allergyOptional = allergyRepository.findByAllergyName(allergyName);
+            Allergy allergy = Allergy.builder()
+                    .allergyName(allergyName)
+                    .build();
 
-            // 이미 저장되어 있는 데이터가 있다면 기존 instance와 관계 테이블 매핑
-            if (allergyOptional.isPresent()) {
-                Protected_Allergy protectedAllergy = Protected_Allergy.builder()
-                        .Protected(aProtected)
-                        .allergy(allergyOptional.get())
-                        .build();
-                protectedAllergyRepository.save(protectedAllergy);
-            }
-            // 그렇지 않고 기존에 저장되어 있는 데이터가 없다면 새로 테이블에 저장 후 관계 테이블 매핑
-            else {
-                Allergy allergy = Allergy.builder()
-                        .allergyName(allergyName)
-                        .build();
-                allergyRepository.save(allergy);
+            allergyRepository.save(allergy);
 
-                Protected_Allergy protectedAllergy = Protected_Allergy.builder()
-                        .allergy(allergy)
-                        .Protected(aProtected)
-                        .build();
-                protectedAllergyRepository.save(protectedAllergy);
-            }
+            Protected_Allergy protectedAllergy = Protected_Allergy.builder()
+                    .Protected(aProtected)
+                    .allergy(allergy)
+                    .build();
+            protectedAllergyRepository.save(protectedAllergy);
         }
 
-        // 요청받은 백신 리스트 중 백신 테이블에 이미 저장되어 있는 instance가 있는지 확인
+        // 백신 리스트 저장
         List<String> vaccinesList = request.getVaccines();
-
         for (String vaccineName : vaccinesList) {
-            Optional<Vaccine> vaccineOptional = vaccineRepository.findByName(vaccineName);
+            Vaccine vaccine = Vaccine.builder()
+                    .name(vaccineName)
+                    .build();
+            vaccineRepository.save(vaccine);
 
-            // 이미 저장되어 있는 백신 데이터가 있다면 기존 인스턴스와 관계 테이블 매핑
-            if (vaccineOptional.isPresent()) {
-                Protected_Vaccine protectedVaccine = Protected_Vaccine.builder()
-                        .Protected(aProtected)
-                        .vaccine(vaccineOptional.get())
-                        .build();
-                protectedVaccineRepository.save(protectedVaccine);
-            }
-            // 해당 백신 이름이 저장되어 있지 않다면 백신 테이블에 백신 데이터 저장 후 기존 인스턴스와 관계 테이블 매핑
-            else {
-                Vaccine vaccine = Vaccine.builder()
-                        .name(vaccineName)
-                        .build();
-                vaccineRepository.save(vaccine);
-
-                Protected_Vaccine protectedVaccine = Protected_Vaccine.builder()
-                        .Protected(aProtected)
-                        .vaccine(vaccine)
-                        .build();
-                protectedVaccineRepository.save(protectedVaccine);
-            }
+            Protected_Vaccine protectedVaccine = Protected_Vaccine.builder()
+                    .Protected(aProtected)
+                    .vaccine(vaccine)
+                    .build();
+            protectedVaccineRepository.save(protectedVaccine);
         }
 
-        // 요청받은 수술 리스트 중 수술 테이블에 이미 저장되어 있는 instance가 있는지 확인
+        // 수술 리스트 저장
         List<String> surgeriesList = request.getSurgeries();
         for (String surgeryName : surgeriesList) {
-            Optional<Surgery> surgeryOptional = surgeryRepository.findByName(surgeryName);
-            // 이미 저장되어 있는 수술 데이터가 있다면 기존 인스턴스와 관계 테이블 매핑
-            if (surgeryOptional.isPresent()) {
-                Protected_Surgery protectedSurgery = Protected_Surgery.builder()
-                        .Protected(aProtected)
-                        .surgery(surgeryOptional.get())
-                        .build();
+            Surgery surgery = Surgery.builder()
+                    .name(surgeryName)
+                    .build();
+            surgeryRepository.save(surgery);
 
-                protectedSurgeryRepository.save(protectedSurgery);
-            }
-            // 해당 수술 이름이 저장되어 있지 않다면 수술 테이블에 수술 데이터 저장 후 기존 인스턴스와 관계 테이블 매핑
-            else {
-                Surgery surgery = Surgery.builder()
-                        .name(surgeryName)
-                        .build();
-                surgeryRepository.save(surgery);
-
-                Protected_Surgery protectedSurgery = Protected_Surgery.builder()
-                        .surgery(surgery)
-                        .Protected(aProtected)
-                        .build();
-                protectedSurgeryRepository.save(protectedSurgery);
-            }
+            Protected_Surgery protectedSurgery = Protected_Surgery.builder()
+                    .Protected(aProtected)
+                    .surgery(surgery)
+                    .build();
+            protectedSurgeryRepository.save(protectedSurgery);
         }
 
-        return true;
+        ProtectedResponseDTO.protectedHealthInfo response = protectedConverter.toProtectedHealthInfo(aProtected);
+        return response;
     }
 
     @Override

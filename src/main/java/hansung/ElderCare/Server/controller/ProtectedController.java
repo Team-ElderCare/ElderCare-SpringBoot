@@ -55,7 +55,7 @@ public class ProtectedController implements ProtectedSpecification {
     }
 
     @Override
-    @GetMapping
+    @GetMapping("/protected")
     public ApiResponse<ProtectedResponseDTO.ProtectedInfo> getProtected() {
         ProtectedResponseDTO.ProtectedInfo protectedInfo = protectedQueryService.getProtectedInfo(1L);
         if (protectedInfo == null) {
@@ -84,8 +84,8 @@ public class ProtectedController implements ProtectedSpecification {
         }
 
         // 전달받은 건강 정보 저장
-        protectedCommandService.registerHealth(request, 1L);
-        return ApiResponse.onSuccess();
+        ProtectedResponseDTO.protectedHealthInfo response = protectedCommandService.registerHealth(request, 3L);
+        return ApiResponse.onSuccess(response);
     }
 
     @Override
