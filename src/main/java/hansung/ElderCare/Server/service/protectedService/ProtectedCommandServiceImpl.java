@@ -5,6 +5,7 @@ import hansung.ElderCare.Server.apiPayload.exception.ProtectedHandler;
 import hansung.ElderCare.Server.apiPayload.exception.UA_UD_UPHandler;
 import hansung.ElderCare.Server.apiPayload.exception.UserHandler;
 import hansung.ElderCare.Server.converter.AddressConverter;
+import hansung.ElderCare.Server.converter.ProtectedConverter;
 import hansung.ElderCare.Server.domain.*;
 import hansung.ElderCare.Server.domain.enums.BloodType;
 import hansung.ElderCare.Server.domain.enums.Relationship;
@@ -39,6 +40,8 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
     private final Protected_VaccineRepository protectedVaccineRepository;
     private final SurgeryRepository surgeryRepository;
     private final Protected_SurgeryRepository protectedSurgeryRepository;
+
+    private final ProtectedConverter protectedConverter;
 
     @Override
 // 보호대상자 등록
@@ -207,14 +210,7 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
         aProtected.setWeight(request.getWeight());
         protectedRepository.save(aProtected);
 
-        ProtectedResponseDTO.protectedHealthInfo response = ProtectedResponseDTO.protectedHealthInfo.builder()
-                .height(aProtected.getHeight())
-                .weight(aProtected.getWeight())
-                .bloodType(aProtected.getBloodType().getDisplayName())
-                .allergies(protectedAllergyRepository.findAllergyNamesByProtectedId(aProtected.getId()))
-                .vaccines(protectedVaccineRepository.findVaccineNamesByProtectedId(aProtected.getId()))
-                .surgeries(protectedSurgeryRepository.findSurgeryNamesByProtectedId(aProtected.getId()))
-                .build();
+        ProtectedResponseDTO.protectedHealthInfo response = protectedConverter.toProtectedHealthInfo(aProtected);
 
         return response;
     }
@@ -229,14 +225,7 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
         aProtected.setBloodType(BloodType.fromString(request.getBloodType()));
         protectedRepository.save(aProtected);
 
-        ProtectedResponseDTO.protectedHealthInfo response = ProtectedResponseDTO.protectedHealthInfo.builder()
-                .height(aProtected.getHeight())
-                .weight(aProtected.getWeight())
-                .bloodType(aProtected.getBloodType().getDisplayName())
-                .allergies(protectedAllergyRepository.findAllergyNamesByProtectedId(aProtected.getId()))
-                .vaccines(protectedVaccineRepository.findVaccineNamesByProtectedId(aProtected.getId()))
-                .surgeries(protectedSurgeryRepository.findSurgeryNamesByProtectedId(aProtected.getId()))
-                .build();
+        ProtectedResponseDTO.protectedHealthInfo response = protectedConverter.toProtectedHealthInfo(aProtected);
 
         return response;
     }
