@@ -215,6 +215,7 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
                     .build();
             protectedAllergyRepository.save(protectedAllergy);
         }
+        // 건강정보 바로 리턴
         return protectedConverter.toProtectedHealthInfo(aProtected);
     }
 }
