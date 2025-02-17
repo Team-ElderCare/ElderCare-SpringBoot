@@ -15,4 +15,6 @@ public interface ProtectedCommandService {
     Boolean registerHealth(ProtectedRequestDTO.ProtectedHealthInfo request, Long userId);
 
     ProtectedResponseDTO.protectedHealthInfo updateHeightWeight(ProtectedRequestDTO.HeightWeightDTO request, Long userId);
+
+    ProtectedResponseDTO.protectedHealthInfo updateBloodType(ProtectedRequestDTO.BloodTypeDTO request, Long userId);
 }

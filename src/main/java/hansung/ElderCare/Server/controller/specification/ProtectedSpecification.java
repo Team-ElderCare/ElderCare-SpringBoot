@@ -48,4 +48,8 @@ public interface ProtectedSpecification {
     @PutMapping
     @Operation(summary = "보호대상자 키, 몸무게 수정", description = "보호대상자 키, 몸무게 수정")
     public ApiResponse<?> updateHeightWeight(ProtectedRequestDTO.HeightWeightDTO request, BindingResult bindingResult);
+
+    @PutMapping
+    @Operation(summary = "보호대상자 혈액형 수정", description = "보호대상자 혈액형 수정")
+    public ApiResponse<?> updateBloodType(ProtectedRequestDTO.BloodTypeDTO request, BindingResult bindingResult);
 }
