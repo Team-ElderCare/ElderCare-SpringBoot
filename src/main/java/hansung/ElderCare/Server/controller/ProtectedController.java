@@ -123,5 +123,19 @@ public class ProtectedController implements ProtectedSpecification {
         return ApiResponse.onSuccess(response);
     }
 
+    @Override
+    @PutMapping("/update/allergy")
+    public ApiResponse<?> updateAllergy(@RequestBody @Valid ProtectedRequestDTO.AllergiesDTO request, BindingResult bindingResult) {
+        // 유효성 검사
+        if (bindingResult.hasErrors()) {
+            Map<String, String> validResult = protectedCommandService.validateHandling(bindingResult);
+            return ApiResponse.onFailure(ErrorStatus.PROTECTED_DATA_UNSATISFIED.getCode(),
+                    ErrorStatus.PROTECTED_DATA_UNSATISFIED.getMessage(), validResult);
+        }
+
+        ProtectedResponseDTO.protectedHealthInfo response = protectedCommandService.updateAllergy(request, 1L);
+        return ApiResponse.onSuccess(response);
+    }
+
 
 }
