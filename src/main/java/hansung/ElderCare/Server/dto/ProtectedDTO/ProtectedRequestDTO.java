@@ -138,6 +138,16 @@ public class ProtectedRequestDTO {
     public static class AllergiesDTO {
         @NotEmpty(message = "알레르기는 필수 입력입니다.")
         @ArraySchema(schema = @Schema(description = "알레르기 목록", example = "[\"집가고싶어알레르기\", \"페니실린 알레르기\"]"))
-        List<String> allergies = new ArrayList<>();
+        List<String> allergies;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class VaccinesDTO {
+        @NotEmpty(message = "백신은 필수 입력입니다.")
+        @ArraySchema(schema = @Schema(description = "백신 목록", example = "코로나 백신"))
+        List<String> vaccines;
     }
 }

@@ -218,4 +218,32 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
         // 건강정보 바로 리턴
         return protectedConverter.toProtectedHealthInfo(aProtected);
     }
+
+    @Override
+    public ProtectedResponseDTO.protectedHealthInfo updateVaccine(ProtectedRequestDTO.VaccinesDTO request, Long userId) {
+        Protected aProtected = uaUdUpRepository.findByUserIdWithProtected(userId)
+                .orElseThrow(() -> new ProtectedHandler(ErrorStatus.PROTECTED_NULL))
+                .getProtected();
+
+        // 보호대상자와 백신관의 관계 끊기
+        protectedVaccineRepository.deleteByProtectedId(aProtected.getId());
+
+        List<String> vaccineNames = request.getVaccines();
+
+        for (String vaccineName : vaccineNames) {
+            Vaccine vaccine = vaccineRepository.findByName(vaccineName)
+                    .orElseGet(() -> {
+                        Vaccine newVaccine = Vaccine.builder()
+                                .name(vaccineName)
+                                .build();
+                        return vaccineRepository.save(newVaccine);
+                    });
+            Protected_Vaccine protectedVaccine = Protected_Vaccine.builder()
+                    .Protected(aProtected)
+                    .vaccine(vaccine)
+                    .build();
+            protectedVaccineRepository.save(protectedVaccine);
+        }
+        return protectedConverter.toProtectedHealthInfo(aProtected);
+    }
 }

@@ -56,4 +56,8 @@ public interface ProtectedSpecification {
     @PutMapping
     @Operation(summary = "보호대상자 알레르기 수정", description = "보호대상자 알레르기 수정")
     public ApiResponse<?> updateAllergy(ProtectedRequestDTO.AllergiesDTO request, BindingResult bindingResult);
+
+    @PutMapping
+    @Operation(summary = "보호대상자 백신이력 수정", description = "보호대상자 백신이력 수정")
+    public ApiResponse<?> updateVaccine(ProtectedRequestDTO.VaccinesDTO request, BindingResult bindingResult);
 }

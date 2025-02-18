@@ -19,4 +19,6 @@ public interface ProtectedCommandService {
     ProtectedResponseDTO.protectedHealthInfo updateBloodType(ProtectedRequestDTO.BloodTypeDTO request, Long userId);
 
     ProtectedResponseDTO.protectedHealthInfo updateAllergy(ProtectedRequestDTO.AllergiesDTO request, Long userId);
+
+    ProtectedResponseDTO.protectedHealthInfo updateVaccine(ProtectedRequestDTO.VaccinesDTO request, Long userId);
 }
