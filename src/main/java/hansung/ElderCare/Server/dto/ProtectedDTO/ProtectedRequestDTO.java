@@ -150,4 +150,14 @@ public class ProtectedRequestDTO {
         @ArraySchema(schema = @Schema(description = "백신 목록", example = "코로나 백신"))
         List<String> vaccines;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SurgeriesDTO {
+        @NotEmpty(message = "수술을 필수 입력입니다.")
+        @ArraySchema(schema = @Schema(description = "수술 목록", example = "수술1"))
+        private List<String> surgeries;
+    }
 }

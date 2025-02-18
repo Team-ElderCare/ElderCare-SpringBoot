@@ -246,4 +246,28 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
         }
         return protectedConverter.toProtectedHealthInfo(aProtected);
     }
+
+    public ProtectedResponseDTO.protectedHealthInfo updateSurgery(ProtectedRequestDTO.SurgeriesDTO request, Long userId) {
+        Protected aProtected = uaUdUpRepository.findByUserIdWithProtected(userId)
+                .orElseThrow(() -> new ProtectedHandler(ErrorStatus.PROTECTED_NULL))
+                .getProtected();
+        protectedSurgeryRepository.deleteByProtectedId(aProtected.getId());
+
+        List<String> surgeryNames = request.getSurgeries();
+        for (String surgeryName : surgeryNames) {
+            Surgery surgery = surgeryRepository.findByName(surgeryName)
+                    .orElseGet(() -> {
+                        Surgery newSurgery = Surgery.builder()
+                                .name(surgeryName)
+                                .build();
+                        return surgeryRepository.save(newSurgery);
+                    });
+            Protected_Surgery protectedSurgery = Protected_Surgery.builder()
+                    .Protected(aProtected)
+                    .surgery(surgery)
+                    .build();
+            protectedSurgeryRepository.save(protectedSurgery);
+        }
+        return protectedConverter.toProtectedHealthInfo(aProtected);
+    }
 }
