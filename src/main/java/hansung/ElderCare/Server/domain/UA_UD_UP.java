@@ -1,16 +1,15 @@
 package hansung.ElderCare.Server.domain;
 
-import hansung.ElderCare.Server.domain.common.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class UA_UD_UP extends BaseEntity {
+@Builder
+@Setter
+public class UA_UD_UP {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UA_UD_UP_id")

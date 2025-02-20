@@ -1,8 +1,8 @@
 package hansung.ElderCare.Server.domain;
 
-import hansung.ElderCare.Server.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Protected_Allergy extends BaseEntity {
+@Builder
+public class Protected_Allergy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "protected_allergy_id")

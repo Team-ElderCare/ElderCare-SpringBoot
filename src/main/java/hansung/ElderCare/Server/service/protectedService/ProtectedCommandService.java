@@ -1,0 +1,26 @@
+package hansung.ElderCare.Server.service.protectedService;
+
+import hansung.ElderCare.Server.dto.ProtectedDTO.ProtectedRequestDTO;
+import hansung.ElderCare.Server.dto.ProtectedDTO.ProtectedResponseDTO;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+
+import java.util.Map;
+
+public interface ProtectedCommandService {
+    Long registrationProtected(ProtectedRequestDTO.RegistrationDTO registrationDTO, Long userId);
+
+    Map<String, String> validateHandling(BindingResult bindingResult);
+
+    ProtectedResponseDTO.protectedHealthInfo registerHealth(ProtectedRequestDTO.ProtectedHealthInfo request, Long userId);
+
+    ProtectedResponseDTO.protectedHealthInfo updateHeightWeight(ProtectedRequestDTO.HeightWeightDTO request, Long userId);
+
+    ProtectedResponseDTO.protectedHealthInfo updateBloodType(ProtectedRequestDTO.BloodTypeDTO request, Long userId);
+
+    ProtectedResponseDTO.protectedHealthInfo updateAllergy(ProtectedRequestDTO.AllergiesDTO request, Long userId);
+
+    ProtectedResponseDTO.protectedHealthInfo updateVaccine(ProtectedRequestDTO.VaccinesDTO request, Long userId);
+
+    ProtectedResponseDTO.protectedHealthInfo updateSurgery(ProtectedRequestDTO.SurgeriesDTO request, Long userId);
+}

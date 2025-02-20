@@ -1,11 +1,8 @@
 package hansung.ElderCare.Server.domain;
 
-import hansung.ElderCare.Server.domain.common.BaseEntity;
 import hansung.ElderCare.Server.domain.enums.BloodType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -13,7 +10,8 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Protected extends BaseEntity {
+@Builder
+public class Protected {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "protected_id")
@@ -36,15 +34,18 @@ public class Protected extends BaseEntity {
     private Address address;    // 보호대상자 주소
 
     @Column(name = "protected_height")
+    @Setter
     private int height;     // 보호대상자 키
 
     @Column(name = "protected_weight")
+    @Setter
     private int weight;     // 보호대상자 몸무게
 
     @Enumerated(EnumType.STRING)
     @Column(name = "protected_blood_type")
+    @Setter
     private BloodType bloodType;    // 보호대상자 혈액형
 
     @Column(name = "protected_image_url")
-    private String protectedImageUrl;    // 사용자 프사 url
+    private String protectedImageUrl;    // 보호대상자 프사 url
 }
