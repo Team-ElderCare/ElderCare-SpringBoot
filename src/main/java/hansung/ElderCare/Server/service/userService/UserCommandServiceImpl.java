@@ -16,11 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Transactional(readOnly = true)
 public class UserCommandServiceImpl implements UserCommandService {
 
     private final UserRepository userRepository;
 
+    @Transactional
     public UserResponseDTO.UserDTO updateUserInfo(Long userId , UserRequestDTO.UserInfoEditDTO request){
 
         //사용자 검색
