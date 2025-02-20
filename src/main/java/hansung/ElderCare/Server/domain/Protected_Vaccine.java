@@ -1,5 +1,6 @@
 package hansung.ElderCare.Server.domain;
 
+import hansung.ElderCare.Server.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Protected_Vaccine {
+public class Protected_Vaccine extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "protected_vaccine_id")
