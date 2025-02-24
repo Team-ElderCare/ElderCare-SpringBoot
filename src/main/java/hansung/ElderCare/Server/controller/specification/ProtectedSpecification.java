@@ -30,10 +30,10 @@ public interface ProtectedSpecification {
 
     @Operation(summary = "보호대상자 정보 수정", description = "보호대상자의 데이터를 받아 수정합니다.")
     @PatchMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    // 수정 데이터는 유효성 검사 X
     public ApiResponse<?> updateProtected(
-            @RequestPart(value = "request") @Parameter(description = "보호대상자 정보(JSON)") ProtectedRequestDTO.RegistrationDTO request,
-            @RequestPart(value = "image", required = false) @Parameter(description = "보호대상자 프로필 이미지") MultipartFile image
+            @RequestPart(value = "request") @Valid @Parameter(description = "보호대상자 정보(JSON)") ProtectedRequestDTO.RegistrationDTO request,
+            @RequestPart(value = "image", required = false) @Parameter(description = "보호대상자 프로필 이미지") MultipartFile image,
+            BindingResult bindingResult
     );
 
     @GetMapping
