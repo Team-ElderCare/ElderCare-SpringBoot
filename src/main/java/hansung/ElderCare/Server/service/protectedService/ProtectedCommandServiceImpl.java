@@ -270,4 +270,43 @@ public class ProtectedCommandServiceImpl implements ProtectedCommandService{
         }
         return protectedConverter.toProtectedHealthInfo(aProtected);
     }
+
+    @Override
+    public ProtectedResponseDTO.ProtectedInfo updateProtected(ProtectedRequestDTO.RegistrationDTO request, Long userId) {
+
+        UA_UD_UP uaUdUp = uaUdUpRepository.findByUserIdWithProtected(userId)
+                .orElseThrow(() -> new UA_UD_UPHandler(ErrorStatus.PROTECTED_NULL));
+
+        Protected aProtected = uaUdUp.getProtected();
+
+        // request 값과 다르면 update 그렇지 않으면 기존 객체 내용을 따르는 toBuilder() 메소드
+        Protected updatedProtected = aProtected.toBuilder()
+                .name(request.getName())
+                .birthDate(request.getBirthDate())
+                .nickname(request.getNickname())
+                .phoneNumber(request.getPhoneNumber())
+                .address(request.getAddress() != null ?
+                        Address.builder()
+                                .zipCode(request.getAddress().getZipcode())
+                                .building(request.getAddress().getBuilding())
+                                .detailedAddress(request.getAddress().getDetailedAddress())
+                                .build():
+                        aProtected.getAddress()
+                ).build();
+
+        protectedRepository.save(updatedProtected);
+
+        uaUdUp = uaUdUp.toBuilder()
+                .Protected(updatedProtected)
+                .build();
+        uaUdUpRepository.save(uaUdUp);
+
+        return ProtectedResponseDTO.ProtectedInfo.builder()
+                .name(updatedProtected.getName())
+                .birthDate(updatedProtected.getBirthDate())
+                .nickname(updatedProtected.getNickname())
+                .phoneNumber(updatedProtected.getPhoneNumber())
+                .address(AddressConverter.toResponseAddressDTO(updatedProtected.getAddress()))
+                .build();
+    }
 }
