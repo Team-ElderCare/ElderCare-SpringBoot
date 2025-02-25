@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @Setter
 public class UA_UD_UP {
     @Id

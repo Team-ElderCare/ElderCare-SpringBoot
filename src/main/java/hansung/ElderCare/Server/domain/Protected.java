@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 public class Protected {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

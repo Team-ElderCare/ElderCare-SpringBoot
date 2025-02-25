@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Embeddable
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {

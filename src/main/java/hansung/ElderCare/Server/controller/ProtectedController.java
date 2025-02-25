@@ -55,6 +55,17 @@ public class ProtectedController implements ProtectedSpecification {
     }
 
     @Override
+    public ApiResponse<?> updateProtected(ProtectedRequestDTO.RegistrationDTO request, MultipartFile image, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return ApiResponse.onFailure(ErrorStatus.PROTECTED_DATA_UNSATISFIED.getCode(), ErrorStatus.PROTECTED_DATA_UNSATISFIED.getMessage(),
+                    protectedCommandService.validateHandling(bindingResult));
+        }
+        // 보호대상자 정보 수정 후 보호대상자 정보 return
+        return ApiResponse.onSuccess(protectedCommandService.updateProtected(request, 1L));
+    }
+
+    @Override
     @GetMapping("/protected")
     public ApiResponse<ProtectedResponseDTO.ProtectedInfo> getProtected() {
         ProtectedResponseDTO.ProtectedInfo protectedInfo = protectedQueryService.getProtectedInfo(1L);
