@@ -13,12 +13,6 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("Hub")
 public class Hub extends Device {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hub_id")
-    private Long id;
-
-
     @Column(name = "hub_code")
     private String hubCode;
 
