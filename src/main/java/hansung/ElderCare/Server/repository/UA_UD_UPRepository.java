@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -19,4 +20,6 @@ public interface UA_UD_UPRepository extends JpaRepository<UA_UD_UP, Long> {
     // userId로 UA_UD_UP 객체와 Protected 객체 join
     @Query("select u from UA_UD_UP u JOIN FETCH u.Protected where u.user.id = :id")
     Optional<UA_UD_UP> findByUserIdWithProtected(@Param("id") Long userId);
+
+    List<UA_UD_UP> findByUser_Id(Long userId);
 }

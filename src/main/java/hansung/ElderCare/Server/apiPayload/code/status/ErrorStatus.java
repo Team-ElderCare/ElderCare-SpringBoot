@@ -31,7 +31,10 @@ public enum ErrorStatus implements BaseErrorCode {
     USER_NOT_IN_RELATIONAL(HttpStatus.BAD_REQUEST, "UAUDUP4001", "관계 테이블에 해당 사용자가 없습니다."),
 
     //이미지 관련 에러
-    IMAGE_SIZE_OVER(HttpStatus.BAD_REQUEST, "IMAGE4001", "이미지의 최대 크기는 5MB입니다.")
+    IMAGE_SIZE_OVER(HttpStatus.BAD_REQUEST, "IMAGE4001", "이미지의 최대 크기는 5MB입니다."),
+
+    //허브관련 에러
+    HUB_NOT_FOUND(HttpStatus.BAD_REQUEST, "HUB4001", "허브를 찾을수 없습니다")
 
     ;
 
