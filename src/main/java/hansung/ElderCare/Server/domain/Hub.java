@@ -1,5 +1,6 @@
 package hansung.ElderCare.Server.domain;
 
+import hansung.ElderCare.Server.domain.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;

@@ -1,18 +1,17 @@
 package hansung.ElderCare.Server.domain;
 
+import hansung.ElderCare.Server.domain.common.BaseEntity;
 import hansung.ElderCare.Server.domain.enums.Relationship;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -24,7 +23,7 @@ public class User {
     @Column(name = "user_email")
     private String email;       // 사용자 이메일
 
-    @Column(name = "username")
+    @Column(name = "user_name")
     private String userName;    // 사용자 이름
 
     @Column(name = "user_phone_number")

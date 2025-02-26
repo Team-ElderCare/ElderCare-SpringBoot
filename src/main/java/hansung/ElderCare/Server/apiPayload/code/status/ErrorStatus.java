@@ -30,15 +30,9 @@ public enum ErrorStatus implements BaseErrorCode {
     // 사용자-보호대상자 간 관계 테이블 에러
     USER_NOT_IN_RELATIONAL(HttpStatus.BAD_REQUEST, "UAUDUP4001", "관계 테이블에 해당 사용자가 없습니다."),
 
-//    //멤버 관련 에러
-//    NICKNAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "USER4001", "비밀번호 확인이 일치하지 않습니다."),
-//    USER_NOT_FOUND(HttpStatus.UNAUTHORIZED, "USER4002", "이메일 또는 패스워드가 일치하지 않습니다."),
-//    EMAIL_ALREADY_EXISTS(HttpStatus.CONFLICT, "USER4003", "이미 존재하는 이메일입니다."),
-//    USER_STATUS_INACTIVE(HttpStatus.UNAUTHORIZED, "USER4004", "탈퇴한 회원입니다."),
-//
-//    //사용자 챌린지 관련 에러
-//    USER_CHALLENGE_NOT_FOUND(HttpStatus.NOT_FOUND, "UC4001", "사용자 챌린지가 존재하지 않습니다"),
-//    USER_CHALLENGE_COMPLETE(HttpStatus.BAD_REQUEST, "UC4002", "완료된 챌린지는 삭제가 불가합니다")
+    //이미지 관련 에러
+    IMAGE_SIZE_OVER(HttpStatus.BAD_REQUEST, "IMAGE4001", "이미지의 최대 크기는 5MB입니다.")
+
     ;
 
 
