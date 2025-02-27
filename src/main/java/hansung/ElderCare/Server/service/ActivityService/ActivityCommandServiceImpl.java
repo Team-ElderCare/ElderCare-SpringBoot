@@ -1,8 +1,8 @@
 package hansung.ElderCare.Server.service.ActivityService;
 
 import hansung.ElderCare.Server.apiPayload.code.status.ErrorStatus;
-import hansung.ElderCare.Server.apiPayload.exception.GeneralException;
 import hansung.ElderCare.Server.apiPayload.exception.HubHandler;
+import hansung.ElderCare.Server.apiPayload.exception.ProtectedHandler;
 import hansung.ElderCare.Server.apiPayload.exception.UA_UD_UPHandler;
 import hansung.ElderCare.Server.apiPayload.exception.UserHandler;
 import hansung.ElderCare.Server.converter.ActivityConverter;
@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,24 +40,14 @@ public class ActivityCommandServiceImpl implements ActivityCommandService {
 
         log.info(String.valueOf(request));
 
-        // 1. hubCode와 clientCode로 Hub 찾기
-        Hub hub = hubRepository.findByHubCodeAndClientCode(request.getHubCode(), request.getClientCode())
+        // 1. hubCode와 clientCode로 Hub와 User 찾기
+        Hub hub = hubRepository.findByHubCodeAndClientCodeWithUser(request.getHubCode(), request.getClientCode())
                 .orElseThrow(() -> new HubHandler(ErrorStatus.HUB_NOT_FOUND));
 
-        // Hub에서 User 정보 가져오기
-        User user = hub.getUser();
-        if (user == null) {
-            throw new UserHandler(ErrorStatus.USER_NOT_FOUND);
-        }
-
-        // User의 ID로 UA_UD_UP 리스트 찾기
-        List<UA_UD_UP> uaUdUpList = uaUdUpRepository.findByUser_Id(user.getId());
-        if (uaUdUpList.isEmpty()) {
-            throw new UA_UD_UPHandler(ErrorStatus.USER_NOT_IN_RELATIONAL);
-        }
-
-        // 첫 번째 Protected 사용 (실제로는 더 정교한 로직이 필요할 수 있음)
-        Protected protected_entity = uaUdUpList.get(0).getProtected();
+        // Hub 코드와 클라이언트 코드로 바로 Protected 조회
+        Protected protected_entity = protectedRepository.findByHubCodeAndClientCode(
+                        request.getHubCode(), request.getClientCode())
+                .orElseThrow(() -> new ProtectedHandler(ErrorStatus.PROTECTED_NULL));
 
         // 3. 현재 시간 포맷팅
         String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
