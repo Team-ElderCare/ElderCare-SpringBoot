@@ -6,6 +6,7 @@ import hansung.ElderCare.Server.dto.ActivityDTO.ActivityRequestDTO;
 import hansung.ElderCare.Server.dto.ActivityDTO.ActivityResponseDTO;
 import hansung.ElderCare.Server.service.ActivityService.ActivityCommandService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ActivityController implements ActivitySpecification {
 
     @Override
     @PostMapping("")
-    public ApiResponse<ActivityResponseDTO.ActivityDTO> addActivity(@RequestBody ActivityRequestDTO.AddActivityRequestDTO request) {
+    public ApiResponse<ActivityResponseDTO.ActivityDTO> addActivity(@Valid @RequestBody ActivityRequestDTO.AddActivityRequestDTO request) {
 
 
         return ApiResponse.onSuccess(activityCommandService.addActivity(request));
