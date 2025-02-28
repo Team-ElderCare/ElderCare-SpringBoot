@@ -53,13 +53,12 @@ public class ActivityCommandServiceImpl implements ActivityCommandService {
         String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         // 4. Activity 엔티티 생성 및 저장
-        Activity activity = new Activity(
-                null, // ID는 자동 생성
-                currentTime,
-                request.getLocation(),
-                protected_entity,
-                hub
-        );
+        Activity activity = Activity.builder()
+                .time(currentTime)
+                .detectedLocation(request.getLocation())
+                .protectedId(protected_entity)
+                .device(hub)
+                .build();
 
         Activity savedActivity = activityRepository.save(activity);
 
