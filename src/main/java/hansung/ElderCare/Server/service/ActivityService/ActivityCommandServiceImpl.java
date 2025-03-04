@@ -37,37 +37,25 @@ public class ActivityCommandServiceImpl implements ActivityCommandService {
     @Override
     public ActivityResponseDTO.ActivityDTO addActivity(ActivityRequestDTO.AddActivityRequestDTO request){
 
-        log.info("리퀘스트 >>>>" + String.valueOf(request));
-
         // hubCode와 clientCode로 Hub와 User 찾기
         Device device = hubRepository.findByHubCodeAndClientCodeWithUser(request.getHubCode(), request.getClientCode())
                 .orElseThrow(() -> new HubHandler(ErrorStatus.HUB_NOT_FOUND));
 
-        log.info("디바이스 >>>>" +String.valueOf(device));
 
         // Device가 Hub 타입인지 확인하고 User 가져오기
         if (!(device instanceof Hub)) {
             throw new DeviceHandler(ErrorStatus.DEVICE_KIND_MISMATCH);
         }
 
-
         Hub hub = (Hub) device;
         User user = hub.getUser();
-
-        log.info("리퀘스트 >>>>" + user);
 
         // 요청된 디바이스 종류 저장
         DeviceKind requestedDeviceKind = DeviceKind.valueOf(request.getDeviceKind());
 
-        log.info("리퀘스트 기기 종류 >>>>" + requestedDeviceKind);
-        log.info("userId는 >>>>>" + user.getId());
         // UA_UD_UP 테이블에서 현재 사용자에게 할당된 요청된 종류의 디바이스가 있는지 확인
-//        boolean deviceExists = uaUdUpRepository.existsByUserIdAndDeviceDeviceKind(
-//                user.getId(), requestedDeviceKind);
-
-
-        // 기존 코드 대신 이 코드를 사용
-        boolean deviceExists = uaUdUpRepository.existsByUserIdAndDeviceDeviceKindCustom(user.getId(), requestedDeviceKind);
+        boolean deviceExists = uaUdUpRepository.existsByUserIdAndDeviceDeviceKind(
+                user.getId(), requestedDeviceKind);
 
         log.info("해당 디바이스가 존재여부 >>>> " + deviceExists);
 
