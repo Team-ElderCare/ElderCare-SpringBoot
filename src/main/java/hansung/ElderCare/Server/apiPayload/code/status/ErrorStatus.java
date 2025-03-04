@@ -33,6 +33,10 @@ public enum ErrorStatus implements BaseErrorCode {
     //이미지 관련 에러
     IMAGE_SIZE_OVER(HttpStatus.BAD_REQUEST, "IMAGE4001", "이미지의 최대 크기는 5MB입니다."),
 
+    //-------------- Device관련
+    //Device관련 에러
+    DEVICE_KIND_MISMATCH(HttpStatus.BAD_REQUEST, "Device4001", "사용자에게 해당 기기종류가 존재하지않습니다."),
+    DEVICE_NOT_REGISTERED_TO_USER(HttpStatus.BAD_REQUEST, "DEVICE4002", "사용자에게 등록된 해당 종류의 디바이스가 없습니다."),
     //허브관련 에러
     HUB_NOT_FOUND(HttpStatus.BAD_REQUEST, "HUB4001", "허브를 찾을수 없습니다")
 

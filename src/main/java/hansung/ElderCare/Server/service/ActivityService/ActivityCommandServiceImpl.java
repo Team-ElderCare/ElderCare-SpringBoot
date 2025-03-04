@@ -1,10 +1,7 @@
 package hansung.ElderCare.Server.service.ActivityService;
 
 import hansung.ElderCare.Server.apiPayload.code.status.ErrorStatus;
-import hansung.ElderCare.Server.apiPayload.exception.HubHandler;
-import hansung.ElderCare.Server.apiPayload.exception.ProtectedHandler;
-import hansung.ElderCare.Server.apiPayload.exception.UA_UD_UPHandler;
-import hansung.ElderCare.Server.apiPayload.exception.UserHandler;
+import hansung.ElderCare.Server.apiPayload.exception.*;
 import hansung.ElderCare.Server.converter.ActivityConverter;
 import hansung.ElderCare.Server.domain.*;
 import hansung.ElderCare.Server.domain.enums.DeviceKind;
@@ -15,6 +12,7 @@ import hansung.ElderCare.Server.repository.HubRepository;
 import hansung.ElderCare.Server.repository.ProtectedRepository;
 import hansung.ElderCare.Server.repository.UA_UD_UPRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +25,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@ToString
 @Transactional
 public class ActivityCommandServiceImpl implements ActivityCommandService {
 
@@ -38,26 +37,59 @@ public class ActivityCommandServiceImpl implements ActivityCommandService {
     @Override
     public ActivityResponseDTO.ActivityDTO addActivity(ActivityRequestDTO.AddActivityRequestDTO request){
 
-        log.info(String.valueOf(request));
+        log.info("리퀘스트 >>>>" + String.valueOf(request));
 
-        // 1. hubCode와 clientCode로 Hub와 User 찾기
-        Hub hub = hubRepository.findByHubCodeAndClientCodeWithUser(request.getHubCode(), request.getClientCode())
+        // hubCode와 clientCode로 Hub와 User 찾기
+        Device device = hubRepository.findByHubCodeAndClientCodeWithUser(request.getHubCode(), request.getClientCode())
                 .orElseThrow(() -> new HubHandler(ErrorStatus.HUB_NOT_FOUND));
+
+        log.info("디바이스 >>>>" +String.valueOf(device));
+
+        // Device가 Hub 타입인지 확인하고 User 가져오기
+        if (!(device instanceof Hub)) {
+            throw new DeviceHandler(ErrorStatus.DEVICE_KIND_MISMATCH);
+        }
+
+
+        Hub hub = (Hub) device;
+        User user = hub.getUser();
+
+        log.info("리퀘스트 >>>>" + user);
+
+        // 요청된 디바이스 종류 저장
+        DeviceKind requestedDeviceKind = DeviceKind.valueOf(request.getDeviceKind());
+
+        log.info("리퀘스트 기기 종류 >>>>" + requestedDeviceKind);
+        log.info("userId는 >>>>>" + user.getId());
+        // UA_UD_UP 테이블에서 현재 사용자에게 할당된 요청된 종류의 디바이스가 있는지 확인
+//        boolean deviceExists = uaUdUpRepository.existsByUserIdAndDeviceDeviceKind(
+//                user.getId(), requestedDeviceKind);
+
+
+        // 기존 코드 대신 이 코드를 사용
+        boolean deviceExists = uaUdUpRepository.existsByUserIdAndDeviceDeviceKindCustom(user.getId(), requestedDeviceKind);
+
+        log.info("해당 디바이스가 존재여부 >>>> " + deviceExists);
+
+        if (!deviceExists) {
+            throw new DeviceHandler(ErrorStatus.DEVICE_NOT_REGISTERED_TO_USER);
+        }
+
 
         // Hub 코드와 클라이언트 코드로 바로 Protected 조회
         Protected protected_entity = protectedRepository.findByHubCodeAndClientCode(
                         request.getHubCode(), request.getClientCode())
                 .orElseThrow(() -> new ProtectedHandler(ErrorStatus.PROTECTED_NULL));
 
-        // 3. 현재 시간 포맷팅
+        // 현재 시간 포맷팅
         String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        // 4. Activity 엔티티 생성 및 저장
+        // Activity 엔티티 생성 및 저장
         Activity activity = Activity.builder()
                 .time(currentTime)
                 .detectedLocation(request.getLocation())
                 .protectedId(protected_entity)
-                .device(hub)
+                .device(device)
                 .build();
 
         Activity savedActivity = activityRepository.save(activity);

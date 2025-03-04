@@ -170,7 +170,7 @@ public class ProtectedController implements ProtectedSpecification {
             return ApiResponse.onFailure(ErrorStatus.PROTECTED_DATA_UNSATISFIED.getCode(),
                     ErrorStatus.PROTECTED_DATA_UNSATISFIED.getMessage(), validResult);
         }
-        ProtectedResponseDTO.protectedHealthInfo response = protectedCommandService.updateSurgery(request, 1L);
+        ProtectedResponseDTO.protectedHealthInfo response = protectedCommandService.updateSurgery(request, 3L);
         return ApiResponse.onSuccess(response);
     }
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public interface ActivitySpecification {
 
     @PostMapping("")
-    @Operation(summary = "활동기록 조회", description = "보호대상자의 활동기록을 조회합니다.")
+    @Operation(summary = "활동기록 추가", description = "허브로부터 데이터를 전달받아 보호대상자의 활동기록을 추가합니다.")
     @ApiResponses(value = {
 
     })
