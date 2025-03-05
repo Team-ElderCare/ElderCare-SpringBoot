@@ -33,10 +33,6 @@ public class ActivityController implements ActivitySpecification {
         if (bindingResult.hasErrors()) {
             Map<String, String> errorMap = validateHandling(bindingResult);
 
-            bindingResult.getFieldErrors().forEach(error -> {
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            });
-
             return ApiResponse.onFailure(
                     ErrorStatus.ACTIVITY_DATA_UNSATISFIED.getCode(),
                     ErrorStatus.ACTIVITY_DATA_UNSATISFIED.getMessage(),

@@ -2,12 +2,10 @@ package hansung.ElderCare.Server.controller.specification;
 
 import hansung.ElderCare.Server.apiPayload.ApiResponse;
 import hansung.ElderCare.Server.dto.ActivityDTO.ActivityRequestDTO;
-import hansung.ElderCare.Server.dto.ActivityDTO.ActivityResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 
 public interface ActivitySpecification {

@@ -38,7 +38,7 @@ public class ActivityCommandServiceImpl implements ActivityCommandService {
     public ActivityResponseDTO.ActivityDTO addActivity(ActivityRequestDTO.AddActivityRequestDTO request){
 
         // hubCode와 clientCode로 Hub와 User 찾기
-        Device device = hubRepository.findByHubCodeAndClientCodeWithUser(request.getHubCode(), request.getClientCode())
+        Device device = hubRepository.findByHubCodeAndClientCode(request.getHubCode(), request.getClientCode())
                 .orElseThrow(() -> new HubHandler(ErrorStatus.HUB_NOT_FOUND));
 
 
@@ -67,9 +67,7 @@ public class ActivityCommandServiceImpl implements ActivityCommandService {
 
 
         // Hub 코드와 클라이언트 코드로 바로 Protected 조회
-        Protected protected_entity = protectedRepository.findByHubCodeAndClientCode(
-                        request.getHubCode(), request.getClientCode())
-                .orElseThrow(() -> new ProtectedHandler(ErrorStatus.PROTECTED_NULL));
+        Protected protected_entity = uaUdUp.getProtected();
 
         // 현재 시간 포맷팅
         String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
