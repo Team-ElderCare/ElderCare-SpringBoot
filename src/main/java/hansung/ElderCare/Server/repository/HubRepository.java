@@ -1,6 +1,6 @@
 package hansung.ElderCare.Server.repository;
 
-import hansung.ElderCare.Server.domain.Protected;
+import hansung.ElderCare.Server.domain.Hub;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ProtectedRepository extends JpaRepository<Protected, Long> {
-    Optional<Protected> findByPhoneNumber(String phoneNumber);
+public interface HubRepository extends JpaRepository<Hub, Long> {
+
+    Optional<Hub> findByHubCodeAndClientCode(String hubCode, String clientCode);
 
 }

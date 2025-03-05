@@ -21,17 +21,28 @@ public enum ErrorStatus implements BaseErrorCode {
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "USER4001", "해당하는 사용자가 없습니다."),
 
 
-    // 보호자관련 에러
+    // 보호대상자관련 에러
     PROTECTED_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "PROTECTED4001", "이미 보호대상자가 등록되어 있습니다."),
     PROTECTED_NULL(HttpStatus.BAD_REQUEST, "PROTECTED4002", "보호대상자 객체가 NULL 값입니다."),
     PROTECTED_NO_PHONE_NUMBER(HttpStatus.BAD_REQUEST, "PROTECTED4003", "보호대상자의 전화번호가 NULL 값입니다."),
     PROTECTED_DATA_UNSATISFIED(HttpStatus.BAD_REQUEST, "PROTECTED4004", "보호대상자 관련 데이터가 유효성 검사에서 실패했습니다."),
 
+    //활동 관련 에러
+    ACTIVITY_DATA_UNSATISFIED(HttpStatus.BAD_REQUEST, "Activity4001", "활동관련 reqeustBody 유효성검사 에러"),
+
     // 사용자-보호대상자 간 관계 테이블 에러
     USER_NOT_IN_RELATIONAL(HttpStatus.BAD_REQUEST, "UAUDUP4001", "관계 테이블에 해당 사용자가 없습니다."),
 
+
     //이미지 관련 에러
-    IMAGE_SIZE_OVER(HttpStatus.BAD_REQUEST, "IMAGE4001", "이미지의 최대 크기는 5MB입니다.")
+    IMAGE_SIZE_OVER(HttpStatus.BAD_REQUEST, "IMAGE4001", "이미지의 최대 크기는 5MB입니다."),
+
+    //-------------- Device관련
+    //Device관련 에러
+    DEVICE_KIND_MISMATCH(HttpStatus.BAD_REQUEST, "Device4001", "사용자에게 해당 기기종류가 존재하지않습니다."),
+    DEVICE_NOT_REGISTERED_TO_USER(HttpStatus.BAD_REQUEST, "DEVICE4002", "사용자에게 등록된 해당 종류의 디바이스가 없습니다."),
+    //허브관련 에러
+    HUB_NOT_FOUND(HttpStatus.BAD_REQUEST, "HUB4001", "허브를 찾을수 없습니다")
 
     ;
 

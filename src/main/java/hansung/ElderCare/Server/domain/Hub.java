@@ -1,9 +1,7 @@
 package hansung.ElderCare.Server.domain;
 
 import hansung.ElderCare.Server.domain.common.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +18,5 @@ public class Hub extends Device {
 
     @Column(name = "client_code")
     private String clientCode;
+
 }

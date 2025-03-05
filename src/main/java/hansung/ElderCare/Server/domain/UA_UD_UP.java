@@ -22,4 +22,8 @@ public class UA_UD_UP {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "protected_id")
     private Protected Protected;        // Protected 외래키
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "device_id") 
+    private Device device; //Device 외래키
 }
