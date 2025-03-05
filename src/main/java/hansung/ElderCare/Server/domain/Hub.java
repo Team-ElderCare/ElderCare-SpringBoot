@@ -19,7 +19,4 @@ public class Hub extends Device {
     @Column(name = "client_code")
     private String clientCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
 }
