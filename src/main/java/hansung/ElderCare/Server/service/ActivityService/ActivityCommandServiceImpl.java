@@ -47,8 +47,10 @@ public class ActivityCommandServiceImpl implements ActivityCommandService {
             throw new DeviceHandler(ErrorStatus.DEVICE_KIND_MISMATCH);
         }
 
-        Hub hub = (Hub) device;
-        User user = hub.getUser();
+        UA_UD_UP uaUdUp = uaUdUpRepository.findByDeviceId(device.getId())
+                .orElseThrow(() -> new UA_UD_UPHandler(ErrorStatus.USER_NOT_IN_RELATIONAL));
+
+        User user = uaUdUp.getUser();
 
         // 요청된 디바이스 종류 저장
         DeviceKind requestedDeviceKind = DeviceKind.valueOf(request.getDeviceKind());

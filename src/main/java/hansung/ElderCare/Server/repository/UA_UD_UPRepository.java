@@ -26,4 +26,6 @@ public interface UA_UD_UPRepository extends JpaRepository<UA_UD_UP, Long> {
     // UA_UD_UPRepository.java에 추가
     @Query("SELECT COUNT(u) > 0 FROM UA_UD_UP u JOIN u.device d WHERE u.user.id = :userId AND d.deviceKind = :deviceKind")
     boolean existsByUserIdAndDeviceDeviceKindCustom(@Param("userId") Long userId, @Param("deviceKind") DeviceKind deviceKind);
+
+    Optional<UA_UD_UP> findByDeviceId(Long deviceId);
 }

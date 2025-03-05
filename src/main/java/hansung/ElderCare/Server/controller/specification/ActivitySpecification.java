@@ -5,6 +5,7 @@ import hansung.ElderCare.Server.dto.ActivityDTO.ActivityRequestDTO;
 import hansung.ElderCare.Server.dto.ActivityDTO.ActivityResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,6 @@ public interface ActivitySpecification {
 
     })
 
-    public ApiResponse<ActivityResponseDTO.ActivityDTO> addActivity(ActivityRequestDTO.AddActivityRequestDTO request);
+    public ApiResponse<?> addActivity(ActivityRequestDTO.AddActivityRequestDTO request, BindingResult bindingResult);
 
 }
