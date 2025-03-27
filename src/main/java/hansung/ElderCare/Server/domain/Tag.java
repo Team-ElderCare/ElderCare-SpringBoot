@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@DiscriminatorValue("Tag")
+@DiscriminatorValue("TAG")
 public class Tag extends Device {
 
     @Column(name = "tag_code")
