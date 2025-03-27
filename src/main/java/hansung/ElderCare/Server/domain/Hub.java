@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@DiscriminatorValue("Hub")
+@DiscriminatorValue("HUB")
 public class Hub extends Device {
 
     @Column(name = "hub_code")

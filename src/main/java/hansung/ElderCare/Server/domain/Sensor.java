@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@DiscriminatorValue("Sensor")
+@DiscriminatorValue("SENSOR")
 public class Sensor extends Device {
     @Column(name = "sensor_code")
     private String sensorCode;

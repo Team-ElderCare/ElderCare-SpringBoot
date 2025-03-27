@@ -70,13 +70,13 @@ public class ActivityCommandServiceImpl implements ActivityCommandService {
         Protected protected_entity = uaUdUp.getProtected();
 
         // 현재 시간 포맷팅
-        String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        LocalDateTime currentTime = LocalDateTime.now();
 
         // Activity 엔티티 생성 및 저장
         Activity activity = Activity.builder()
                 .time(currentTime)
                 .detectedLocation(request.getLocation())
-                .protectedId(protected_entity)
+                .protectedPerson(protected_entity)
                 .device(device)
                 .build();
 
